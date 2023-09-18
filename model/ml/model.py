@@ -88,7 +88,7 @@ def performance_sliced(categorical_features, test_set):
 
     Inputs
     ------
-    model : ???
+    model :
         Trained machine learning model.
     categorical_features: list
         list of str containing the categorical features.
