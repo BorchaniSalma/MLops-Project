@@ -137,7 +137,7 @@ cat_features = [
 ]
 
 model_path = Path(__file__)
-model_path = join(model_path.parent,'starter','ml','models')
+model_path = join(model_path.parent,'model','ml','models')
 
 model = load(join(model_path,'rfc_model.pkl'))
 lb = load(join(model_path,'rfc_lb.joblib'))
