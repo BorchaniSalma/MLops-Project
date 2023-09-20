@@ -25,7 +25,7 @@ logging.basicConfig(
 
 # Add code to load in the data.
 logging.info('INFO: Loading data.')
-data = load_data('./data/census.csv') 
+data = load_data('../data/census_cleaned.csv') 
 logging.info('SUCCESS: Data Loaded')
 
 # Optional enhancement, use K-fold cross validation
@@ -71,7 +71,7 @@ logging.info(f'INFO: X_test.shape: {X_test.shape}')
 logging.info(f'INFO: y_test.shape: {y_test.shape}')
 
 
-model = joblib.load('./ml/models/rfc_model.pkl')
+# model = joblib.load('./ml/models/rfc_model.pkl')
 
 # Train and save a model.
 logging.info('INFO: Starting training process ...')
