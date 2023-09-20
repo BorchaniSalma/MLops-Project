@@ -1,2 +1,9 @@
+numpy
 pandas
-sikit_learn
+scikit-learn
+pytest
+requests
+fastapi
+uvicorn
+gunicorn
+dvc
