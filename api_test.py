@@ -16,7 +16,7 @@ def test_get(client):
     r = client.get('/')
 
     assert r.status_code == 200
-    assert r.json()['message'] == "Welcome to salary predictor"
+    assert r.json()['message'] == "Welcome !!"
 
 def test_post_over_50(client):
     r = client.post("/infer", json={
