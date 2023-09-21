@@ -11,7 +11,6 @@ def client():
     api_client = TestClient(api)
     return api_client
 
-
 def test_get(client):
     r = client.get('/')
 
