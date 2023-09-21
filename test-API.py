@@ -18,7 +18,6 @@ def test_get(client):
     assert r.status_code == 200
     assert r.json()['message'] == "Welcome to salary predictor"
 
-#56,Local-gov,216851,Bachelors,13,Married-civ-spouse,Tech-support,Husband,White,Male,0,0,40,United-States,>50K
 def test_post_over_50(client):
     r = client.post("/infer", json={
         "age": 56,
@@ -39,7 +38,6 @@ def test_post_over_50(client):
     assert r.status_code == 200
     assert r.json()['prediction'] == ">50K"
 
-#34,Private,245487,7th-8th,4,Married-civ-spouse,Transport-moving,Husband,Amer-Indian-Eskimo,Male,0,0,45,Mexico,<=50K
 def test_post_under_50(client):
     r = client.post("/infer", json={
         "age": 34,
