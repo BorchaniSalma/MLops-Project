@@ -8,7 +8,7 @@ headers["Content-Type"] = "application/json"
 
 data = """
 {
-    "age": 56, 
+    "age": 56,
     "fnlgt": 216851,
     "educationNum": 13,
     "capitalGain": 0,

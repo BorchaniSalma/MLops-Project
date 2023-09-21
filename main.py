@@ -43,7 +43,7 @@ class DataEntry(BaseModel):
         'Prof-school',
         '5th-6th',
         'Some-college',
-        '7th-8th', 
+        '7th-8th',
         '10th',
         'Preschool',
         '12th',
@@ -149,21 +149,21 @@ encoder = load(join(model_path, 'rfc_encoder.joblib'))
 @api.post("/infer")
 async def infer(data: DataEntry):
     data_entry = np.array([[
-                     data.age,
-                     data.fnlgt,
-                     data.educationNum,
-                     data.capitalGain,
-                     data.capitalLoss,
-                     data.workclass,
-                     data.education,
-                     data.maritalStatus,
-                     data.occupation,
-                     data.relationship,
-                     data.race,
-                     data.sex,
-                     data.hoursPerWeek,
-                     data.nativeCountry
-                     ]])
+        data.age,
+        data.fnlgt,
+        data.educationNum,
+        data.capitalGain,
+        data.capitalLoss,
+        data.workclass,
+        data.education,
+        data.maritalStatus,
+        data.occupation,
+        data.relationship,
+        data.race,
+        data.sex,
+        data.hoursPerWeek,
+        data.nativeCountry
+    ]])
 
     data_df = pd.DataFrame(data=data_entry, columns=[
         "age",
@@ -182,11 +182,11 @@ async def infer(data: DataEntry):
         "native-country"
     ])
     X, _, _, _ = process_data(
-                data_df,
-                categorical_features=cat_features,
-                encoder=encoder, 
-                lb=lb, 
-                training=False
-            )
+        data_df,
+        categorical_features=cat_features,
+        encoder=encoder,
+        lb=lb,
+        training=False
+    )
     pred = inference(model, X)
     return {"prediction": lb.inverse_transform(pred)[0]}

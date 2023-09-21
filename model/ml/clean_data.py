@@ -1,5 +1,5 @@
 import pandas as pd
-import logging 
+import logging
 import numpy as np
 from pathlib import Path
 import os
@@ -23,7 +23,7 @@ def load_data(path):
 
     input:
         path: a path to the csv
-    
+
     output:
         df: pandas dataframe
     """

@@ -17,9 +17,9 @@ logging.basicConfig(
 def test_load_data_exists(load_data):
     """
     This function test the load_data helper function.
-    
-    The test consists of providing an existing path and expecting 
-    a data frame in return. 
+
+    The test consists of providing an existing path and expecting
+    a data frame in return.
     """
     data = [
         'c1,c2,c3,c4',
@@ -46,14 +46,14 @@ def test_load_data_exists(load_data):
             expected in this test.')
         remove(file_path)
         raise err
-    
+
     if df is not None:
         try:
             assert df.shape == data_shape
         except AssertionError as err:
             logging.error('ERROR: Error in loading shape')
             raise err
-    
+
     logging.info('SUCCESS: Test ended successfully')
 
 
@@ -61,9 +61,9 @@ def test_load_data_exists(load_data):
 def test_load_data_missing(load_data):
     """
     This function test the load_data helper function.
-    
-    The test consists of providing an unexisting path and expecting 
-    an error to be raised . 
+
+    The test consists of providing an unexisting path and expecting
+    an error to be raised .
     """
     logging.info('Starting the test 2 of load_data function ')
 
@@ -75,16 +75,16 @@ def test_load_data_missing(load_data):
             expected in this test.')
 
     assert not df
-    
+
     logging.info('SUCCESS: Test ended successfully')
-    
+
 
 @pytest.mark.parametrize("inference", [model.inference])
 def test_inference(inference):
     """
     This function test the inference feature in the model.
 
-    The test verify that the inference feature call the predict 
+    The test verify that the inference feature call the predict
     function in the model parameter.
 
     """
@@ -100,7 +100,7 @@ def test_inference(inference):
             return np.ones((X.shape[0], 1))
 
     y_pred = inference(simple_model(), X)
-    
+
     try:
         assert (X.shape[0], 1) == y_pred.shape
     except AssertionError as err:
@@ -119,11 +119,11 @@ def test_inference(inference):
 @pytest.mark.parametrize('cmm', [model.compute_model_metrics])
 def test_CMM(cmm):
     """
-    This test is dedicated to compute_model_metrics function.    
-    """       
+    This test is dedicated to compute_model_metrics function.
+    """
 
     import numpy as np
-    
+
     label = np.random.randint(0, 1, size=(20, 1))
     y_pred = np.random.randint(0, 1, size=(20, 1))
     results = cmm(label, y_pred)

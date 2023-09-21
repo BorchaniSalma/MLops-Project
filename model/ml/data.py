@@ -8,7 +8,7 @@ def process_data(
 ):
     """ Process the data used in the machine learning pipeline.
 
-    Processes the data using one hot encoding for the categorical features 
+    Processes the data using one hot encoding for the categorical features
     and a label
     binarizer for the labels. This can be used in either training or
     inference/validation.
@@ -19,11 +19,11 @@ def process_data(
     Inputs
     ------
     X : pd.DataFrame
-        Dataframe containing the features and label. 
+        Dataframe containing the features and label.
         Columns in `categorical_features` categorical_features: list[str]
         List containing the names of the categorical features (default=[])
     label : str
-        Name of the label column in `X`. If None, then an empty array 
+        Name of the label column in `X`. If None, then an empty array
         will be returned for y (default=None)
     training : bool
         Indicator if training mode or inference/validation mode.
