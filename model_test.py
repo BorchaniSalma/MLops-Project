@@ -2,6 +2,9 @@ import pytest
 import logging
 import model.ml.clean_data as cd
 import model.ml.model as model
+import warnings
+warnings.filterwarnings("ignore")
+
 logging.basicConfig(
     filename='./logs/model_test.log',
     level=logging.INFO,
