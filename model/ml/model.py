@@ -31,12 +31,12 @@ def train_model(X_train, y_train):
     }
 
     rfc = RFC()
-   
+
     cv_rfc = GridSearchCV(
         estimator=rfc,
         param_grid=param_grid,
         cv=5
-        )
+    )
 
     cv_rfc.fit(X_train, y_train)
 
@@ -112,8 +112,8 @@ def performance_sliced(categorical_features, test_set):
                 label="salary",
                 training=False,
                 lb=lb
-                )
-    
+            )
+
             y_pred = model.predict(X_test)
 
             precision, recall, fbeta = compute_model_metrics(
@@ -126,6 +126,6 @@ def performance_sliced(categorical_features, test_set):
                 "recall": recall,
                 "fbeta": fbeta
             })
-    
+
     with open('slice_output.txt', 'w') as fp:
         dump(output_json, fp)
