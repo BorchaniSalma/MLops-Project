@@ -117,3 +117,4 @@ logging.info('INFO: Saving the data LB ...')
 joblib.dump(lb, './ml/models/rfc_lb.joblib')
 logging.info('SUCCESS: LB saved')
 
+performance_sliced(cat_features, test)
