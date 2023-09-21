@@ -5,6 +5,8 @@ API test file
 import pytest
 from fastapi.testclient import TestClient
 from main import api
+import warnings
+warnings.filterwarnings("ignore")
 
 
 @pytest.fixture
