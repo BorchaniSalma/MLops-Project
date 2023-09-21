@@ -11,7 +11,8 @@ import os
 
 from pathlib import Path
 from os.path import join
-    
+
+
 class DataEntry(BaseModel):
     age: int
     fnlgt: int
@@ -19,94 +20,93 @@ class DataEntry(BaseModel):
     capitalGain: int
     capitalLoss: int
     hoursPerWeek: int
-    workclass:Literal[
-        'State-gov', 
-        'Self-emp-not-inc', 
-        'Private', 
+    workclass: Literal[
+        'State-gov',
+        'Self-emp-not-inc',
+        'Private',
         'Federal-gov',
-        'Local-gov', 
-        'Self-emp-inc', 
+        'Local-gov',
+        'Self-emp-inc',
         'Without-pay'
     ]
     education: Literal[
-        'Bachelors', 
-        'HS-grad', 
-        'Doctorate', 
-        'Assoc-voc', 
-        'Assoc-acdm', 
-        '11th', 
-        'Masters', 
+        'Bachelors',
+        'HS-grad',
+        'Doctorate',
+        'Assoc-voc',
+        'Assoc-acdm',
+        '11th',
+        'Masters',
         '9th',
         'Prof-school',
-        '5th-6th', 
+        '5th-6th',
         'Some-college',
         '7th-8th', 
-        '10th', 
-        'Preschool', 
-        '12th', 
+        '10th',
+        'Preschool',
+        '12th',
         '1st-4th'
     ]
     maritalStatus: Literal[
-        'Never-married', 
-        'Married-spouse-absent', 
-        'Separated', 
+        'Never-married',
+        'Married-spouse-absent',
+        'Separated',
         'Married-AF-spouse',
         'Widowed',
-        'Married-civ-spouse', 
+        'Married-civ-spouse',
         'Divorced',
     ]
     occupation: Literal[
-        'Adm-clerical', 
-        'Exec-managerial', 
+        'Adm-clerical',
+        'Exec-managerial',
         'Handlers-cleaners',
-        'Machine-op-inspct', 
+        'Machine-op-inspct',
         'Tech-support',
-        'Craft-repair', 
-        'Protective-serv', 
+        'Craft-repair',
+        'Protective-serv',
         'Armed-Forces',
         'Priv-house-serv',
-        'Prof-specialty', 
-        'Other-service', 
-        'Sales', 
+        'Prof-specialty',
+        'Other-service',
+        'Sales',
         'Transport-moving',
         'Farming-fishing'
     ]
     relationship: Literal[
-        'Not-in-family', 
-        'Husband', 
-        'Unmarried', 
+        'Not-in-family',
+        'Husband',
+        'Unmarried',
         'Own-child',
         'Other-relative',
         'Wife'
     ]
     race: Literal[
-        'White', 
-        'Black', 
-        'Asian-Pac-Islander', 
+        'White',
+        'Black',
+        'Asian-Pac-Islander',
         'Amer-Indian-Eskimo',
         'Other'
     ]
     sex: Literal[
-        'Male', 
+        'Male',
         'Female'
     ]
     nativeCountry: Literal[
-        'United-States', 'Cuba', 'Jamaica', 
-        'India', 'Mexico','Puerto-Rico', 
-        'Honduras', 'England', 'Canada', 
-        'Germany', 'Iran','Philippines', 
-        'Poland', 'Columbia', 'Cambodia', 
-        'Thailand','Ecuador', 'Laos', 
+        'United-States', 'Cuba', 'Jamaica',
+        'India', 'Mexico', 'Puerto-Rico',
+        'Honduras', 'England', 'Canada',
+        'Germany', 'Iran', 'Philippines',
+        'Poland', 'Columbia', 'Cambodia',
+        'Thailand', 'Ecuador', 'Laos',
         'Taiwan', 'Haiti', 'Portugal',
-        'Dominican-Republic', 'El-Salvador', 
-        'France', 'Guatemala','Italy', 
-        'China', 'South', 'Japan', 
-        'Yugoslavia', 'Peru','Outlying-US(Guam-USVI-etc)', 
-        'Scotland', 'Trinadad&Tobago','Greece', 
-        'Nicaragua', 'Vietnam', 'Hong', 
-        'Ireland', 'Hungary','Holand-Netherlands'
+        'Dominican-Republic', 'El-Salvador',
+        'France', 'Guatemala', 'Italy',
+        'China', 'South', 'Japan',
+        'Yugoslavia', 'Peru', 'Outlying-US(Guam-USVI-etc)',
+        'Scotland', 'Trinadad&Tobago', 'Greece',
+        'Nicaragua', 'Vietnam', 'Hong',
+        'Ireland', 'Hungary', 'Holand-Netherlands'
     ]
-
 
 
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
@@ -122,7 +122,7 @@ api = FastAPI()
 @api.get("/")
 async def message():
     return {
-        "message":"Welcome !!"
+        "message": "Welcome !!"
     }
 
 cat_features = [
@@ -137,16 +137,16 @@ cat_features = [
 ]
 
 model_path = Path(__file__)
-model_path = join(model_path.parent,'model','ml','models')
+model_path = join(model_path.parent, 'model', 'ml', 'models')
 
-model = load(join(model_path,'rfc_model.pkl'))
-lb = load(join(model_path,'rfc_lb.joblib'))
-encoder = load(join(model_path,'rfc_encoder.joblib'))
+model = load(join(model_path, 'rfc_model.pkl'))
+lb = load(join(model_path, 'rfc_lb.joblib'))
+encoder = load(join(model_path, 'rfc_encoder.joblib'))
+
 
 @api.post("/infer")
 async def infer(data: DataEntry):
-
-    data_entry  = np.array([[
+    data_entry = np.array([[
                      data.age,
                      data.fnlgt,
                      data.educationNum,
@@ -179,7 +179,6 @@ async def infer(data: DataEntry):
         "hours-per-week",
         "native-country"
     ])
-    
     X, _, _, _ = process_data(
                 data_df,
                 categorical_features=cat_features,
@@ -188,4 +187,4 @@ async def infer(data: DataEntry):
                 training=False
             )
     pred = inference(model, X)
-    return {"prediction":lb.inverse_transform(pred)[0]}
+    return {"prediction": lb.inverse_transform(pred)[0]}

@@ -1,18 +1,12 @@
-# Script to train machine learning model.
-
 from sklearn.model_selection import train_test_split
-
 # Add the necessary imports for the starter code.
-
-import pandas as pd
 from ml.data import process_data
-from ml.model import *
+from ml.model import train_model, compute_model_metrics, inference
+from ml.model import performance_sliced
 from ml.clean_data import load_data
 import joblib
-
-
-
 import logging
+
 logging.basicConfig(
     filename='./train_logs/census_train.log',
     level=logging.INFO,
@@ -20,9 +14,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     datefmt="%Y-%m-%d %H:%M:%S"
 )
-
-
-
 # Add code to load in the data.
 logging.info('INFO: Loading data.')
 data = load_data('../data/census_cleaned.csv') 
@@ -76,12 +67,8 @@ logging.info(f'INFO: y_test.shape: {y_test.shape}')
 # Train and save a model.
 logging.info('INFO: Starting training process ...')
 model = train_model(X_train, y_train)
-
 logging.info(f'Train Acc: {model.score(X_train, y_train)}')
 logging.info(f'Test Acc: {model.score(X_test, y_test)}')
-
-
-
 precision, recall, fbeta = compute_model_metrics(
     y_train, 
     inference(
@@ -91,9 +78,6 @@ precision, recall, fbeta = compute_model_metrics(
     )
 logging.info(f'INFO: Train metrics: Precision: \
     {precision}, recall: {recall}, fbeta: {fbeta}')
-
-
-
 precision, recall, fbeta = compute_model_metrics(
     y_test, 
     inference(
@@ -116,5 +100,4 @@ logging.info('SUCCESS: Encoder saved')
 logging.info('INFO: Saving the data LB ...')
 joblib.dump(lb, './ml/models/rfc_lb.joblib')
 logging.info('SUCCESS: LB saved')
-
 performance_sliced(cat_features, test)

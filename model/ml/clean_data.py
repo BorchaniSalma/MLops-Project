@@ -16,6 +16,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     datefmt="%Y-%m-%d %H:%M:%S")
 
+
 def load_data(path):
     """
     return dataframe for the csv found at path
@@ -40,11 +41,7 @@ def load_data(path):
     return df
 
 
-
 DATA_PATH = Path('/home/salma/Desktop/MLops/MLops-Project/data/census.csv')
-
-
-
 
 
 if __name__ == "__main__":

@@ -9,7 +9,8 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     datefmt="%Y-%m-%d %H:%M:%S")
 
-@pytest.mark.parametrize("load_data",[cd.load_data])
+
+@pytest.mark.parametrize("load_data", [cd.load_data])
 def test_load_data_exists(load_data):
     """
     This function test the load_data helper function.
@@ -22,17 +23,15 @@ def test_load_data_exists(load_data):
         'First,entry,in,file',
         'Second,entry,in,file'
     ]
-    data_shape = (2,4)
-    
-    
+    data_shape = (2, 4)
     logging.info('Starting the test 1 of load_data function ')
 
     from pathlib import Path
     from os.path import join
     from os import remove
     file_path = Path(__file__)
-    file_path = join(file_path.parent,'test_file.csv')
-    with open(file_path,'w') as fp:
+    file_path = join(file_path.parent, 'test_file.csv')
+    with open(file_path, 'w') as fp:
         for line in data:
             fp.write(line+'\n')
     df = None
@@ -48,15 +47,14 @@ def test_load_data_exists(load_data):
     if df is not None:
         try:
             assert df.shape == data_shape
-        except AssertionError as err :
+        except AssertionError as err:
             logging.error('ERROR: Error in loading shape')
             raise err
     
     logging.info('SUCCESS: Test ended successfully')
 
 
-
-@pytest.mark.parametrize("load_data",[cd.load_data])
+@pytest.mark.parametrize("load_data", [cd.load_data])
 def test_load_data_missing(load_data):
     """
     This function test the load_data helper function.
@@ -69,7 +67,7 @@ def test_load_data_missing(load_data):
     df = None
     try:
         df = load_data('file_path.txt')
-    except FileNotFoundError as err:
+    except FileNotFoundError:
         logging.info('SUCCESS: FileNotFoundError is \
             expected in this test.')
 
@@ -90,18 +88,18 @@ def test_inference(inference):
 
     import numpy as np
 
-    X = np.random.randint(-1,1,size=(5,3))
+    X = np.random.randint(-1, 1, size=(5, 3))
 
     class simple_model:
 
         def predict(self, X):
 
-            return np.ones((X.shape[0],1))
+            return np.ones((X.shape[0], 1))
 
     y_pred = inference(simple_model(), X)
     
     try:
-        assert (X.shape[0],1) == y_pred.shape
+        assert (X.shape[0], 1) == y_pred.shape
     except AssertionError as err:
         logging.info('ERROR: Size mismatch between y_pred \
             and X.')
@@ -123,8 +121,8 @@ def test_CMM(cmm):
 
     import numpy as np
     
-    label = np.random.randint(0,1, size=(20,1))
-    y_pred = np.random.randint(0,1, size=(20,1))
+    label = np.random.randint(0, 1, size=(20, 1))
+    y_pred = np.random.randint(0, 1, size=(20, 1))
     results = cmm(label, y_pred)
 
     try:
@@ -135,7 +133,7 @@ def test_CMM(cmm):
 
     try:
         results = np.array(results)
-        assert np.all( results <= 1) and np.all( 0 <= results)
+        assert np.all(results <= 1) and np.all(0 <= results)
     except AssertionError as err:
         logging.info('ERROR: All the results should be \
         in [0, 1]')
