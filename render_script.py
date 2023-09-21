@@ -1,8 +1,7 @@
 import requests
 from requests.structures import CaseInsensitiveDict
 
-# Replace this URL with your Render-hosted API endpoint
-url = "https://mlops-project.onrender.com"
+url = "https://mlops-project.onrender.com/infer"
 
 headers = CaseInsensitiveDict()
 headers["Content-Type"] = "application/json"
