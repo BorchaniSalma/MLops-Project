@@ -7,4 +7,3 @@ fastapi
 uvicorn
 gunicorn
 dvc
-python==3.8
