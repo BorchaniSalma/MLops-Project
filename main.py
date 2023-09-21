@@ -11,6 +11,8 @@ import os
 
 from pathlib import Path
 from os.path import join
+import warnings
+warnings.filterwarnings("ignore")
 
 
 class DataEntry(BaseModel):
